@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 用户相关 包括用户管理 登录 注册 退出 -->
+	<package name="user" extends="struts-default,json-default" namespace="/">
+		<!-- 登录 -->
+		<action name="login" class="com.fruitrade.action.LoginAction">
+			<result name="none" type="json">
+				<param name="root">action</param>
+			</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 注册 -->
+		<action name="regist"  class="com.fruitrade.action.RegistAction">
+			<result name="success" type="json">
+				<param name="root">action</param>
+			</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 退出 -->
+		<action name="logout" class="com.fruitrade.action.LogoutAction">
+			<result name="none" type="json"></result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 个人中心修改用户信息 -->
+		<action name="updateUser"
+			class="com.fruitrade.action.UserAction">
+			<result name="none" type="json"></result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 重置 -->
+		<action name="recharge" class="com.fruitrade.action.UserAction"
+			method="recharge">
+			<result name="none" type="json"></result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 修改密码 -->
+		<action name="updatePwd"
+			class="com.fruitrade.action.UserAction" method="updatePwd">
+			<result name="none" type="json"></result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 新增或编辑用户 -->
+		<action name="saveOrUpdateUser"
+			class="com.fruitrade.action.UserAction" method="saveOrUpdate">
+			<result name="none" type="json"></result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 删除用户 -->
+		<action name="deleteUser"
+			class="com.fruitrade.action.UserAction" method="deleteUser">
+			<result name="none" type="json"></result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 去用户编辑页面 -->
+		<action name="toUpdateUserPage"
+			class="com.fruitrade.action.UserAction" method="toUpdateUserPage">
+			<result name="success">ui/admin/user/user/editUser.jsp</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 加载用户列表 -->
+		<action name="listUser" class="com.fruitrade.action.UserAction"
+			method="listUser">
+			<result name="none" type="json">
+				<param name="root">action</param>
+			</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+	</package>
+	
+	<!-- 角色维护 -->
+	<package name="role" extends="struts-default,json-default" namespace="/">
+		<!-- 加载角色列表 -->
+		<action name="listRole" class="com.fruitrade.action.RoleAction">
+			<result name="none" type="json">
+				<param name="root">action</param>
+			</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 去角色编辑页面 -->
+		<action name="toUpdateRolePage"
+			class="com.fruitrade.action.RoleAction" method="toUpdateRolePage">
+			<result name="success">ui/admin/user/role/editRole.jsp</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 新增或编辑角色 -->
+		<action name="saveOrUpdateRole"
+			class="com.fruitrade.action.RoleAction" method="saveOrUpdateRole">
+			<result name="none" type="json"></result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 删除角色 -->
+		<action name="deleteRole"
+			class="com.fruitrade.action.RoleAction" method="deleteRole">
+			<result name="none" type="json"></result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+	</package>
+	
+	<!-- 新闻管理 -->
+	<package name="news" extends="struts-default,json-default" namespace="/">
+		<!-- 加载新闻列表 -->
+		<action name="listNews" class="com.fruitrade.action.NewsAction" method="listNews">
+			<result name="none" type="json">
+				<param name="root">action</param>
+			</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 去新闻详情页 -->
+		<action name="toNewsDetailPage" class="com.fruitrade.action.NewsAction">
+			<result name="success">ui/customer/news/detail.jsp</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 去新闻编辑页面 -->
+		<action name="toUpdateNewsPage"
+			class="com.fruitrade.action.NewsAction" method="toUpdateNewsPage">
+			<result name="success">ui/admin/news/editNews.jsp</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 新增或编辑新闻 -->
+		<action name="saveOrUpdateNews"
+			class="com.fruitrade.action.NewsAction" method="saveOrUpdateNews">
+			<result name="none" type="json"></result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 根据ID查询新闻 -->
+		<action name="getNewsById"
+			class="com.fruitrade.action.NewsAction" method="getNewsById">
+			<result name="none" type="json">
+				<param name="root">action</param>
+			</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 删除新闻 -->
+		<action name="deleteNews"
+			class="com.fruitrade.action.NewsAction" method="deleteNews">
+			<result name="none" type="json"></result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+	</package>
+	
+	<!-- 仓库维护 -->
+	<package name="storehouse" extends="struts-default,json-default" namespace="/">
+		<!-- 加载仓库列表 -->
+		<action name="listStorehouse" class="com.fruitrade.action.StorehouseAction">
+			<result name="none" type="json">
+				<param name="root">action</param>
+			</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 去仓库编辑页面 -->
+		<action name="toUpdateStorehousePage"
+			class="com.fruitrade.action.StorehouseAction" method="toUpdateStorehousePage">
+			<result name="success">ui/admin/storehouse/storehouse/editStorehouse.jsp</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 去仓库详情页面 -->
+		<action name="toViewStorehousePage"
+			class="com.fruitrade.action.StorehouseAction" method="toViewStorehousePage">
+			<result name="success">ui/admin/storehouse/storehouse/viewStorehouse.jsp</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 新增或编辑仓库 -->
+		<action name="saveOrUpdateStorehouse"
+			class="com.fruitrade.action.StorehouseAction" method="saveOrUpdateStorehouse">
+			<result name="none" type="json"></result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 删除仓库 -->
+		<action name="deleteStorehouse"
+			class="com.fruitrade.action.StorehouseAction" method="deleteStorehouse">
+			<result name="none" type="json"></result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+	</package>
+	
+	<!-- 货架维护 -->
+	<package name="storage" extends="struts-default,json-default" namespace="/">
+		<!-- 去编辑货架页面 -->
+		<action name="toUpdateStoragePage"
+			class="com.fruitrade.action.StorageAction" method="toUpdateStoragePage">
+			<result name="success">ui/admin/storehouse/storage/editStorage.jsp</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 新增或编辑货架 -->
+		<action name="saveOrUpdateStorage"
+			class="com.fruitrade.action.StorageAction" method="saveOrUpdateStorage">
+			<result name="none" type="json"></result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 删除货架 -->
+		<action name="deleteStorage"
+			class="com.fruitrade.action.StorageAction" method="deleteStorage">
+			<result name="none" type="json"></result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 加载货架列表 -->
+		<action name="listStorage" class="com.fruitrade.action.StorageAction">
+			<result name="none" type="json">
+				<param name="root">action</param>
+			</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+	</package>
+	
+	<!-- 进货维护 -->
+	<package name="purchase" extends="struts-default,json-default" namespace="/">
+		<!-- 加载进货列表 -->
+		<action name="listPurchase" class="com.fruitrade.action.PurchaseAction">
+			<result name="none" type="json">
+				<param name="root">action</param>
+			</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 去进货编辑页面 -->
+		<action name="toUpdatePurchasePage"
+			class="com.fruitrade.action.PurchaseAction" method="toUpdatePurchasePage">
+			<result name="success">ui/admin/storehouse/purchase/editPurchase.jsp</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 新增或编辑进货信息 -->
+		<action name="saveOrUpdatePurchase"
+			class="com.fruitrade.action.PurchaseAction" method="saveOrUpdatePurchase">
+			<result name="none" type="json"></result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 删除进货信息 -->
+		<action name="deletePurchase"
+			class="com.fruitrade.action.PurchaseAction" method="deletePurchase">
+			<result name="none" type="json"></result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+	</package>
+	
+	<!-- 品牌维护 -->
+	<package name="brand" extends="struts-default,json-default" namespace="/">
+		<!-- 加载品牌列表 -->
+		<action name="listBrand" class="com.fruitrade.action.BrandAction">
+			<result name="none" type="json">
+				<param name="root">action</param>
+			</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 去品牌新增页面 -->
+		<action name="toAddBrandPage"
+			class="com.fruitrade.action.BrandAction" method="toAddBrandPage">
+			<result name="success">ui/admin/supplier/brand/addBrand.jsp</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 去品牌编辑页面 -->
+		<action name="toUpdateBrandPage"
+			class="com.fruitrade.action.BrandAction" method="toUpdateBrandPage">
+			<result name="success">ui/admin/supplier/brand/editBrand.jsp</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 新增或编辑品牌信息 -->
+		<action name="saveOrUpdateBrand"
+			class="com.fruitrade.action.BrandAction" method="saveOrUpdateBrand">
+			<result name="none" type="json"></result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 删除品牌信息 -->
+		<action name="deleteBrand"
+			class="com.fruitrade.action.BrandAction" method="deleteBrand">
+			<result name="none" type="json"></result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+	</package>
+	
+	<!-- 散户维护 -->
+	<package name="retail" extends="struts-default,json-default" namespace="/">
+		<!-- 加载散户列表 -->
+		<action name="listRetail" class="com.fruitrade.action.RetailAction">
+			<result name="none" type="json">
+				<param name="root">action</param>
+			</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 去散户编辑页面 -->
+		<action name="toUpdateRetailPage"
+			class="com.fruitrade.action.RetailAction" method="toUpdateRetailPage">
+			<result name="success">ui/admin/supplier/retail/editRetail.jsp</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 新增或编辑散户信息 -->
+		<action name="saveOrUpdateRetail"
+			class="com.fruitrade.action.RetailAction" method="saveOrUpdateRetail">
+			<result name="none" type="json"></result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 删除散户信息 -->
+		<action name="deleteRetail"
+			class="com.fruitrade.action.RetailAction" method="deleteRetail">
+			<result name="none" type="json"></result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+	</package>
+	
+	<!-- 水果分类-->
+	<package name="fruitclassify" extends="struts-default,json-default" namespace="/">
+		<!-- 加载水果分类列表 -->
+		<action name="listFruitClassify" class="com.fruitrade.action.FruitClassifyAction">
+			<result name="none" type="json">
+				<param name="root">action</param>
+			</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 去水果分类编辑页面 -->
+		<action name="toUpdateFruitClassifyPage"
+			class="com.fruitrade.action.FruitClassifyAction" method="toUpdateFruitClassifyPage">
+			<result name="success">ui/admin/goods/fruitclassify/editFruitclassify.jsp</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 新增或编辑水果分类信息 -->
+		<action name="saveOrUpdateFruitKind"
+			class="com.fruitrade.action.FruitClassifyAction" method="saveOrUpdateFruitKind">
+			<result name="none" type="json"></result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 删除水果分类信息 -->
+		<action name="deleteFruitClassify"
+			class="com.fruitrade.action.FruitClassifyAction" method="deleteFruitClassify">
+			<result name="none" type="json"></result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+	</package>
+	
+	<!-- 水果维护 -->
+	<package name="fruit" extends="struts-default,json-default" namespace="/">
+		<!-- 加载水果列表 -->
+		<action name="listFruit" class="com.fruitrade.action.FruitAction">
+			<result name="none" type="json">
+				<param name="root">action</param>
+			</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 去水果列表页面 -->
+		<action name="toFruitListPage"
+			class="com.fruitrade.action.FruitAction" method="toFruitListPage">
+			<result name="success">ui/admin/goods/fruit/fruitList.jsp</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 去客户水果列表页面 -->
+		<action name="toGoodsListPage"
+			class="com.fruitrade.action.FruitAction" method="toGoodsListPage">
+			<result name="success">ui/customer/goods/goods.jsp</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 去水果新增页面 -->
+		<action name="toAddFruitPage"
+			class="com.fruitrade.action.FruitAction" method="toAddFruitPage">
+			<result name="success">ui/admin/goods/fruit/addFruit.jsp</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 去水果编辑页面 -->
+		<action name="toUpdateFruitPage"
+			class="com.fruitrade.action.FruitAction" method="toUpdateFruitPage">
+			<result name="success">ui/admin/goods/fruit/editFruit.jsp</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 新增或编辑水果信息 -->
+		<action name="saveOrUpdateFruit"
+			class="com.fruitrade.action.FruitAction" method="saveOrUpdateFruit">
+			<result name="none" type="json"></result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 删除水果信息 -->
+		<action name="deleteFruit"
+			class="com.fruitrade.action.FruitAction" method="deleteFruit">
+			<result name="none" type="json"></result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+	</package>
+	
+	<!-- 供应商和水果关联维护 -->
+	<package name="supplyVsFruit" extends="struts-default,json-default" namespace="/">
+		<!-- 加载列表数据 -->
+		<action name="listSupplyVsFruit" class="com.fruitrade.action.SupplyVsFruitAction">
+			<result name="none" type="json">
+				<param name="root">action</param>
+			</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 去新增页面 -->
+		<action name="toAddSupplyVsFruitPage"
+			class="com.fruitrade.action.SupplyVsFruitAction" method="toAddSupplyVsFruitPage">
+			<result name="success">ui/admin/supplier/supplyVsFruit/addSupplyVsFruit.jsp</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 去编辑页面 -->
+		<action name="toUpdateSupplyVsFruitPage"
+			class="com.fruitrade.action.SupplyVsFruitAction" method="toUpdateSupplyVsFruitPage">
+			<result name="success">ui/admin/supplier/supplyVsFruit/editSupplyVsFruit.jsp</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 新增或编辑信息 -->
+		<action name="saveOrUpdateSupplyVsFruit"
+			class="com.fruitrade.action.SupplyVsFruitAction" method="saveOrUpdateSupplyVsFruit">
+			<result name="none" type="json"></result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 删除信息 -->
+		<action name="deleteSupplyVsFruit"
+			class="com.fruitrade.action.SupplyVsFruitAction" method="deleteSupplyVsFruit">
+			<result name="none" type="json"></result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+	</package>
+	
+	<!-- 购物车相关 -->
+	<package name="cart" extends="struts-default,json-default" namespace="/">
+		<!-- 加载购物车列表 -->
+		<action name="listCart" class="com.fruitrade.action.CartAction">
+			<result name="none" type="json">
+				<param name="root">action</param>
+			</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 去购物车编辑页面 -->
+		<action name="toUpdateCartPage"
+			class="com.fruitrade.action.CartAction" method="toUpdateCartPage">
+			<result name="success">ui/admin/cart/editCart.jsp</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 新增或编辑购物车信息 -->
+		<action name="saveOrUpdateCart"
+			class="com.fruitrade.action.CartAction" method="saveOrUpdateCart">
+			<result name="none" type="json"></result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 删除购物车信息 -->
+		<action name="deleteCart"
+			class="com.fruitrade.action.CartAction" method="deleteCart">
+			<result name="none" type="json"></result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+	</package>
+	
+	<!-- 订单相关 -->
+	<package name="theOrder" extends="struts-default,json-default" namespace="/">
+		<!-- 去订单列表页面 -->
+		<action name="toOrderListPage"
+			class="com.fruitrade.action.OrderAction" method="toOrderListPage">
+			<result name="success">ui/admin/order/editOrder.jsp</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 加载订单列表 -->
+		<action name="listOrder" class="com.fruitrade.action.OrderAction">
+			<result name="none" type="json">
+				<param name="root">action</param>
+			</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 新增或编辑订单信息 -->
+		<action name="saveOrUpdateOrder"
+			class="com.fruitrade.action.OrderAction" method="saveOrUpdateOrder">
+			<result name="none" type="json"></result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 删除订单信息 -->
+		<action name="deleteOrder"
+			class="com.fruitrade.action.OrderAction" method="deleteOrder">
+			<result name="none" type="json"></result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 支付订单 -->
+		<action name="payOrder"
+			class="com.fruitrade.action.OrderAction" method="payOrder">
+			<result name="none" type="json"></result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+	</package>
+	
+	<!-- 上传相关 -->
+	<package name="upload" extends="struts-default,json-default" namespace="/">
+		<action name="uploadPic" class="com.fruitrade.action.UploadAction" method="uploadPic">
+			<result name="none" type="json">
+				<param name="root">action</param>
+			</result>
+		</action>
+		<action name="toUploadPage" class="com.fruitrade.action.UploadAction" method="toUploadPage">
+			<result name="success">ui/admin/goods/fruit/uploadPic.jsp</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+	</package>
+</struts>
