@@ -104,6 +104,7 @@ public class CartAction implements Action, ModelDriven<CartDo> {
 			if (this.cartData.getId() != null) { // 存在主键 走编辑
 				this.cartService.updateCart(this.cartData);
 			} else { // 不存在主键 走新增
+				this.cartData.setState(0);// 未生成订单
 				this.cartService.insertCart(this.cartData);
 			}
 			return NONE;

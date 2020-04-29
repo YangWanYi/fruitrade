@@ -2,6 +2,7 @@ package com.fruitrade.dao.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
@@ -50,15 +51,9 @@ public class StorageDaoImpl extends HibernateDaoSupport  implements StorageDao {
 		if(storage.getStoreHouseId()!=null) {
 			hql.append(" and storeHouseId ="+storage.getStoreHouseId());
 		}
-//		if(Storage.getRoleId() != null) {
-//			hql.append(" and ROLETYPE = '"+Storage.getRoleId()+"'  ");
-//		}
-//		if(StringUtils.isNoneEmpty(Storage.getGender())) {
-//			hql.append(" and GENDER = '"+Storage.getGender()+"'  ");
-//		}
-//		if(StringUtils.isNoneEmpty(Storage.getPhoneNum())) {
-//			hql.append(" and PHONENUM like '%"+Storage.getPhoneNum()+"%'  ");
-//		}
+		if(StringUtils.isNoneEmpty(storage.getStorageCode())) {
+			hql.append(" and storageCode like '%"+storage.getStorageCode()+"%'  ");
+		}
 
 		@SuppressWarnings("unchecked")
 		List<StorageDo> list= (List<StorageDo>) super.getHibernateTemplate().find(hql.toString());

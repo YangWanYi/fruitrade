@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page import="com.fruitrade.domain.PurchaseDo;"%>
+<%@page import="com.fruitrade.domain.OutputStoreDo;"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -11,7 +11,7 @@
 		<meta charset="UTF-8">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 		<link href="https://cdn.bootcss.com/bootstrap-table/1.16.0/bootstrap-table.css" rel="stylesheet">
-		<title>进货管理</title>
+		<title>出库管理</title>
 		<style type="text/css">
 			*{
 				padding: 0 0;
@@ -23,7 +23,7 @@
 				overflow-x: hidden; 
 				padding: 0px 10px;
 			}
-			#winIframe,#uploadIframe{
+			#winIframe,#fruitIframe{
 				height: 100%;
 				width: 100%;
 				border: none;
@@ -46,7 +46,7 @@
 				float: left;
 				padding: 5px 10px;
 			}
-			#searchPurchase{
+			#searchOutputStore{
 			    margin-top: 4px;
    	 			margin-left: 10px;
 			}
@@ -55,15 +55,20 @@
 	<body>
 	
 		<div id="toolbar">
-			<div id="addPurchase" class="btn btn-primary" data-toggle="modal" data-target="#myModal">新增进货</div>
-			<div id="editPurchase" class="btn btn-success" data-toggle="modal" data-target="#myModal">编辑进货</div>
-			<div id="deletePurchase" class="btn btn-danger">删除进货</div>
+<!-- 			<div id="addOutputStore" class="btn btn-primary" data-toggle="modal" data-target="#myModal">新增出库</div> -->
+			<div id="editOutputStore" class="btn btn-success" data-toggle="modal" data-target="#myModal">编辑出库</div>
+			<div id="showSumByDate" class="btn btn-primary" data-toggle="modal" data-target="#myModal">查看折损总量</div>
+<!-- 			<div id="deleteOutputStore" class="btn btn-danger">删除出库</div> -->
 			
 		</div>
 		<div class="searchItem">
+			<span>仓库名称</span>
+		    <input type="text" class="form-control" style="width: 160px;margin-top:5px;"  id="storeName" value="" placeholder="请输入仓库名称">
+			<span>仓库编号</span>
+		    <input type="text" class="form-control" style="width: 160px;margin-top:5px;"  id="storeCode" value="" placeholder="请输入仓库编号">
 			<span>水果名称</span>
 		    <input type="text" class="form-control" style="width: 160px;margin-top:5px;"  id="fruitName" value="" placeholder="请输入水果名称">
-			<div id="searchPurchase" class="btn btn-info">立即搜索</div>
+			<div id="searchOutputStore" class="btn btn-info">立即搜索</div>
 			<div id="clearSearch" class="btn btn-secondary">清空</div>
 		</div>
 		
@@ -86,25 +91,6 @@
 		    </div>
 		</div>
 		
-		<!-- 模态框（Modal）上传图片  -->
-		<div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		    <div class="modal-dialog">
-		        <div class="modal-content">
-		            <div class="modal-header">
-		                <h4 class="modal-title" id="myModalLabel"></h4>
-		                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		            </div>
-		            <div class="modal-body">
-						<iframe id="uploadIframe" width="100%" height="100%"></iframe>
-					</div>
-		            <div class="modal-footer">
-		                <div class="btn btn-default" data-dismiss="modal">关闭</div>
-		                <div class="btn uploadNow btn-primary">确定</div>
-		            </div>
-		        </div>
-		    </div>
-		</div>
-        
 		<table
 		  id="table"
 		  data-toolbar="#toolbar"
@@ -117,7 +103,6 @@
 		
 	</body>
 	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-	<script src="https://cdn.bootcss.com/jquery.form/4.2.2/jquery.form.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 	<script src="https://cdn.bootcss.com/bootstrap-table/1.16.0/bootstrap-table.js"></script>
@@ -125,70 +110,56 @@
 	<script type="text/javascript">
 		var $table = $('#table');
 		$(function() {
-			initTable('/listPurchase.action');
+			initTable('/listOutputStore.action');
 		});
 		
-		$('#searchPurchase').click(function(){ // 立即搜索
+		$('#searchOutputStore').click(function(){ // 立即搜索
+			var storeName = $("#storeName").val();
+			var storeCode = $("#storeCode").val(); 
 			var fruitName = $("#fruitName").val(); 
-			initTable('/listPurchase.action?fruitName='+fruitName);
+			initTable('/listOutputStore.action?storeName='+storeName+'&storeCode='+storeCode+'&fruitName='+fruitName);
 		});
 		$('#clearSearch').click(function(){
+			$("#storeName").val('');
+			$("#storeCode").val('');
 			$("#fruitName").val('');
-			initTable('/listPurchase.action');
+			initTable('/listOutputStore.action');
 		});
-		$('#addPurchase').click(function(){
-			$("#winIframe").attr("src","addPurchase.jsp");
-			$('#myModal').on('shown.bs.modal', function () {
-				$(this).find('.modal-content').css('height','600px');// 修改modal的高度
-				$(this).find('.modal-content').css('width','500px');// 修改modal的标题
-				$(this).find('.modal-title').text('新增进货');// 修改modal的标题
-			});
-		});
-		$('#deletePurchase').click(function(){
-			var row = $table.bootstrapTable('getSelections');
-			if(row.length == 0){
-				alert("请选择数据！");
-				return false;
-			}
-			var ids = "";
-			$(row).each(function(m,n){
-				ids += n.id+',';
-			});
-			if(confirm('确定删除吗？')){
-				$.ajax({
-					type: 'post',
-					dataType: 'json',
-					url: '/deletePurchase.action',
-					data: {'ids': ids},
-					async: false,
-					success: function(s){
-						initTable('/listPurchase.action'); // 重新加载数据
-					},
-					error: function(e){
-						alert("删除失败！");
-					}
-				});
-		    }
-		});
-		$('#uploadPic').click(function(){ // 上传图片
-			var row = $table.bootstrapTable('getSelections');
-			if(row.length == 0){
-				alert("请选择数据！");
-				return false;
-			}
-			if(row.length > 1){
-				alert("只能选择一条数据！");
-				return false;
-			}
-			$("#uploadIframe").attr("src","/toUploadPage.action?id="+row[0].id);
-			$('#uploadModal').on('shown.bs.modal', function () {
-				$(this).find('.modal-content').css('height','500px');// 修改modal的高度
-				$(this).find('.modal-content').css('width','500px');// 修改modal的标题
-				$(this).find('.modal-title').text('上传图片');// 修改modal的标题
-			});
-		});
-		
-		$('#editPurchase').click(function(){
+// 		$('#addOutputStore').click(function(){
+// 			$("#winIframe").attr("src","addOutputStore.jsp");
+// 			$('#myModal').on('shown.bs.modal', function () {
+// 				$(this).find('.modal-content').css('height','600px');// 修改modal的高度
+// 				$(this).find('.modal-content').css('width','500px');// 修改modal的标题
+// 				$(this).find('.modal-title').text('新增出库');// 修改modal的标题
+// 			});
+// 		});
+// 		$('#deleteOutputStore').click(function(){
+// 			var row = $table.bootstrapTable('getSelections');
+// 			if(row.length == 0){
+// 				alert("请选择数据！");
+// 				return false;
+// 			}
+// 			var ids = "";
+// 			$(row).each(function(m,n){
+// 				ids += n.id+',';
+// 			});
+// 			if(confirm('确定删除吗？')){
+// 				$.ajax({
+// 					type: 'post',
+// 					dataType: 'json',
+// 					url: '/deleteOutputStore.action',
+// 					data: {'ids': ids},
+// 					async: false,
+// 					success: function(s){
+// 						initTable('/listOutputStore.action'); // 重新加载数据
+// 					},
+// 					error: function(e){
+// 						alert("删除失败！");
+// 					}
+// 				});
+// 		    }
+// 		});
+		$('#editOutputStore').click(function(){
 			var row = $table.bootstrapTable('getSelections');
 			if(row.length == 0){
 				alert("请选择数据！");
@@ -198,11 +169,19 @@
 				alert("只能选择一条数据！");
 				return false;
 			}
-			$("#winIframe").attr("src","/toUpdatePurchasePage.action?id="+row[0].id);
+			$("#winIframe").attr("src","/toUpdateOutputStorePage.action?id="+row[0].id);
 			$('#myModal').on('shown.bs.modal', function () {
 				$(this).find('.modal-content').css('height','600px');// 修改modal的高度
 				$(this).find('.modal-content').css('width','500px');// 修改modal的标题
-				$(this).find('.modal-title').text('编辑进货');// 修改modal的标题
+				$(this).find('.modal-title').text('编辑出库');// 修改modal的标题
+			});
+		});
+		$('#showSumByDate').click(function(){
+			$("#winIframe").attr("src","fruitSumByDay.jsp");
+			$('#myModal').on('shown.bs.modal', function () {
+				$(this).find('.modal-content').css('height','600px');// 修改modal的高度
+				$(this).find('.modal-content').css('width','500px');// 修改modal的标题
+				$(this).find('.modal-title').text('查看水果折损总量');// 修改modal的标题
 			});
 		});
 		
@@ -210,7 +189,7 @@
 			$.ajax({
 				type: 'post',
 				dataType: 'json',
-				url: '/saveOrUpdatePurchase.action',
+				url: '/saveOrUpdateOutputStore.action',
 				data: $("#winIframe").contents().find("#myForm").serialize(),
 				async: false,
 				success: function(s){
@@ -222,14 +201,9 @@
 			});
 		});
 		
-		$(".uploadNow").click(function(){
-			$("#uploadIframe").contents().find("#myUploadForm").submit();
-			$('#uploadModal').modal('hide');
-		});
-		
-		$("#myModal,#uploadModal").on("hidden.bs.modal", function() {
+		$("#myModal").on("hidden.bs.modal", function() {
 		    $(this).removeData("bs.modal");
-		    initTable('/listPurchase.action'); // 重新加载数据
+		    initTable('/listOutputStore.action'); // 重新加载数据
 		});
 
 		function initTable(url) {
@@ -246,55 +220,61 @@
 			          valign: 'middle',
 			          visible: false,
 			        }, {
-			          title: '供应商类型',
-			          field: 'supplyType',
-			          align: 'center'
-			        }, {
-			          title: '供应商名称',
-			          field: 'supplyName',
-			          align: 'center',
-			        }, {
-			          title: ' 水果种类',
-			          field: 'classifyName',
-			          align: 'center',
-			        }, {
 			          title: '水果名称',
 			          field: 'fruitName',
 			          align: 'center',
-			        },{
-			          title: '产地',
-			          field: 'place',
+			          valign: 'middle',
+			        }, {
+			          title: '仓库名称',
+			          field: 'storeName',
 			          align: 'center'
 			        },{
-			          title: '批发价',
-			          field: 'price',
-			          align: 'center'
-			        },{
-			          title: '批发单位',
-			          field: 'unit',
+			          title: '仓库编号',
+			          field: 'storeCode',
 			          align: 'center',
 			        },{
-			          title: '进货数量',
-			          field: 'purchaseNum',
-			          align: 'center'
+			          title: '仓库位置 ',
+			          field: 'storePlace',
+			          align: 'center',
 			        },{
-			          title: '售价',
-			          field: 'salePrice',
-			          align: 'center'
+			          title: '联系人电话',
+			          field: 'contactNum',
+			          align: 'center',
 			        },{
-			          title: '存储仓库',
-			          field: 'storeHouseCode',
-			          align: 'center'
+			          title: '水果出货量（斤） ',
+			          field: 'outPutNum', 
+			          align: 'center',
+			          formatter: function (value, row, index) {
+		                if (value) {
+		                	return value+row.unit;
+		                }
+		              }
 			        },{
-			          title: '存储货架',
-			          field: 'storageCode',
-			          align: 'center'
+			          title: '水果折损量（斤）',
+			          field: 'wreckNum',
+			          align: 'center',
+			          formatter: function (value, row, index) {
+		                if (value) {
+		                	return value+row.unit;
+		                }
+		              }
 			        },{
-			          title: '存货数量',
-			          field: 'inventory',
-			          align: 'center'
+			          title: '日期',
+			          field: 'createTime',
+			          align: 'center',
+			          valign: 'middle',
+			          width: 300,
+			          formatter: function (value, row, index) {
+			        	  if(value){
+			        		  return value.replace('T', ' ');
+			        	  }
+		              }
 			        }
-		        ]]
+		        ]],
+		        onLoadSuccess: function(data){
+		        	console.log(data.list);
+		        	return data.list;
+		        }
 		    });
 		  }
 	</script>

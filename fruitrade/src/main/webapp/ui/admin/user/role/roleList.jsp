@@ -61,14 +61,8 @@
 			
 		</div>
 		<div class="searchItem">
-			<span>姓名</span>
-		    <input type="text" class="form-control" style="width: 160px;margin-top:5px;"  id="RoleName" value="" placeholder="请输入姓名">
-			<span>角色</span>
-		    <input type="text" class="form-control" style="width: 160px;margin-top:5px;"  id="roleType" value="" placeholder="请输入角色">
-			<span>性别</span>
-		    <input type="text" class="form-control" style="width: 160px;margin-top:5px;"  id="gender" value="" placeholder="请输入性别">
-			<span>联系方式</span>
-		    <input type="text" class="form-control" style="width: 160px;margin-top:5px;"  id="phoneNum" value="" placeholder="请输入联系方式">
+			<span>角色名称</span>
+		    <input type="text" class="form-control" style="width: 160px;margin-top:5px;"  id="roleName" value="" placeholder="请输入角色名称">
 			<div id="searchRole" class="btn btn-info">立即搜索</div>
 			<div id="clearSearch" class="btn btn-secondary">清空</div>
 		</div>
@@ -115,29 +109,11 @@
 		});
 		
 		$('#searchRole').click(function(){ // 立即搜索
-			var RoleName = $("#RoleName").val();
-			var roleType = $("#roleType").val(); // 角色角色ID 1：客户 2：管理员
-			var gender = $("#gender").val(); // 角色性别 0：男  1：女
-			var phoneNum = $("#phoneNum").val();
-			var genderV = '';
-			var roleTypeV = '';
-			if(gender&&gender.indexOf('男')!=-1){
-				genderV = '0';
-			} else if(gender&&gender.indexOf('女')!=-1){
-				genderV = '1';
-			}
-			if(roleType&&roleType.indexOf('客户')!=-1){
-				roleTypeV = '1';
-			} else if(roleType&&roleType.indexOf('管理员')!=-1){
-				roleTypeV = '2';
-			}
-			initTable('/listRole.action?RoleName='+RoleName+'&roleType='+roleTypeV+'&gender='+genderV+'&phoneNum='+phoneNum);
+			var roleName = $("#roleName").val();
+			initTable('/listRole.action?roleName='+roleName);
 		});
 		$('#clearSearch').click(function(){
-			$("#RoleName").val('');
-			$("#roleType").val('');
-			$("#gender").val('');
-			$("#phoneNum").val('');
+			$("#roleName").val('');
 			initTable('/listRole.action');
 		});
 		$('#addRole').click(function(){

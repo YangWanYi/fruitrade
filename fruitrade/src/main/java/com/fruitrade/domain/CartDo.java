@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
  * 购物车实体类
@@ -32,6 +31,12 @@ public class CartDo implements Serializable {
 	 */
 	@Column(name = "USERID")
 	private Integer userId;
+	
+	/**
+	 * 是否生成订单 0：否 1：是
+	 */
+	@Column(name = "STATE")
+	private Integer state;
 	
 	/**
 	 * 水果进货id
@@ -60,7 +65,7 @@ public class CartDo implements Serializable {
 	@Column(name = "FRUITNAME")
 	private String fruitName;
 	
-	@Transient
+	@Column(name = "SALEPRICE")
 	private Double salePrice;
 
 	public Integer getId() {
@@ -125,6 +130,14 @@ public class CartDo implements Serializable {
 
 	public void setFruitId(Integer fruitId) {
 		this.fruitId = fruitId;
+	}
+
+	public Integer getState() {
+		return state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
 	}
 	
 }

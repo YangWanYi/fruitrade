@@ -2,6 +2,7 @@ package com.fruitrade.dao.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
@@ -46,10 +47,10 @@ public class PurchaseDaoImpl extends HibernateDaoSupport  implements PurchaseDao
 	@Override
 	public List<Object> listPurchase(PurchaseDo purchase) {
 		StringBuffer hql=new StringBuffer();
-		hql.append(" from PurchaseDo b left join SupplyVsFruitDo v on b.supplyVsFruitId = v.id");
-//		if(StringUtils.isNoneEmpty(Purchase.getPurchaseName())) {
-//			hql.append(" and PurchaseNAME like '%"+Purchase.getPurchaseName()+"%'  ");
-//		}
+		hql.append(" from PurchaseDo b left join SupplyVsFruitDo v on b.supplyVsFruitId = v.id where 1=1 ");
+		if(StringUtils.isNoneEmpty(purchase.getFruitName())) {
+			hql.append(" and v.fruitId in ( select id from FruitDo where fruitName like '%"+purchase.getFruitName()+"%'  )");
+		}
 //		if(Purchase.getRoleId() != null) {
 //			hql.append(" and ROLETYPE = '"+Purchase.getRoleId()+"'  ");
 //		}

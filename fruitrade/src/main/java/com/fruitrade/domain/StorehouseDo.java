@@ -28,6 +28,12 @@ public class StorehouseDo implements Serializable {
 	private Integer id;
 	
 	/**
+	 *仓库名
+	 */
+	@Column(name = "STOREHOUSENAME")
+	private String storeHouseName;
+	
+	/**
 	 *仓库编号
 	 */
 	@Column(name = "STOREHOUSECODE")
@@ -145,6 +151,14 @@ public class StorehouseDo implements Serializable {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public String getStoreHouseName() {
+		return storeHouseName;
+	}
+
+	public void setStoreHouseName(String storeHouseName) {
+		this.storeHouseName = storeHouseName;
 	}
 	
 }

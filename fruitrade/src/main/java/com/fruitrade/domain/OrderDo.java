@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * 订单实体类
@@ -68,7 +69,25 @@ public class OrderDo implements Serializable {
 	 */
 	@Column(name = "PAYTIME")
 	private Date payTime;
+	
+	/**
+	 * 修改人
+	 */
+	@Column(name = "updateId")
+	private Integer updateId;
 
+	/**
+	 * 修改时间
+	 */
+	@Column(name = "UPDATETIME")
+	private Date updateTime;
+	
+	@Transient
+	private String userName;
+	
+	@Transient
+	private String orderStateX;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -131,6 +150,38 @@ public class OrderDo implements Serializable {
 
 	public void setPayTime(Date payTime) {
 		this.payTime = payTime;
+	}
+
+	public Integer getUpdateId() {
+		return updateId;
+	}
+
+	public void setUpdateId(Integer updateId) {
+		this.updateId = updateId;
+	}
+
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getOrderStateX() {
+		return orderStateX;
+	}
+
+	public void setOrderStateX(String orderStateX) {
+		this.orderStateX = orderStateX;
 	}
 
 }

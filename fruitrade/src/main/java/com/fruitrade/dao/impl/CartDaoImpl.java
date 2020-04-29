@@ -51,12 +51,9 @@ public class CartDaoImpl extends HibernateDaoSupport  implements CartDao {
 		if(cart.getUserId()!=null) {
 			hql.append(" and USERID ="+cart.getUserId());
 		}
-//		if(Cart.getRoleId() != null) {
-//			hql.append(" and ROLETYPE = '"+Cart.getRoleId()+"'  ");
-//		}
-//		if(StringUtils.isNoneEmpty(Cart.getGender())) {
-//			hql.append(" and GENDER = '"+Cart.getGender()+"'  ");
-//		}
+		if(cart.getOrderId() != null) {
+			hql.append(" and orderId = '"+cart.getOrderId());
+		}
 		if(StringUtils.isNoneEmpty(cart.getFruitName())) {
 			hql.append(" and fruitName like '%"+cart.getFruitName()+"%'  ");
 		}

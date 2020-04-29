@@ -58,14 +58,14 @@
 			<div id="addStorehouse" class="btn btn-primary" data-toggle="modal" data-target="#myModal">新增仓库</div>
 			<div id="editStorehouse" class="btn btn-success" data-toggle="modal" data-target="#myModal">编辑仓库</div>
 			<div id="deleteStorehouse" class="btn btn-danger">删除仓库</div>
-			<div id="viewStorehouse" class="btn btn-warning">查看库存</div>
+<!-- 			<div id="viewStorehouse" class="btn btn-warning">查看库存</div> -->
 			
 		</div>
 		<div class="searchItem">
-			<span>仓库地址</span>
-		    <input type="text" class="form-control" style="width: 160px;margin-top:5px;"  id="address" value="" placeholder="请输入仓库地址">
-			<span>负责人</span>
-		    <input type="text" class="form-control" style="width: 160px;margin-top:5px;"  id="principal" value="" placeholder="请输入负责人">
+			<span>仓库名称</span>
+		    <input type="text" class="form-control" style="width: 160px;margin-top:5px;"  id="storeHouseName" value="" placeholder="请输入仓库名称">
+			<span>仓库编号</span>
+		    <input type="text" class="form-control" style="width: 160px;margin-top:5px;"  id="storeHouseCode" value="" placeholder="请输入仓库编号">
 			<div id="searchStorehouse" class="btn btn-info">立即搜索</div>
 			<div id="clearSearch" class="btn btn-secondary">清空</div>
 		</div>
@@ -112,13 +112,13 @@
 		});
 		
 		$('#searchStorehouse').click(function(){ // 立即搜索
-			var address = $("#address").val();
-			var principal = $("#principal").val(); 
-			initTable('/listStorehouse.action?address='+address+'&principal='+principal);
+			var storeHouseName = $("#storeHouseName").val();
+			var storeHouseCode = $("#storeHouseCode").val(); 
+			initTable('/listStorehouse.action?storeHouseName='+storeHouseName+'&storeHouseCode='+storeHouseCode);
 		});
 		$('#clearSearch').click(function(){
-			$("#address").val('');
-			$("#principal").val('');
+			$("#storeHouseName").val('');
+			$("#storeHouseCode").val('');
 			initTable('/listStorehouse.action');
 		});
 		$('#addStorehouse').click(function(){
@@ -216,6 +216,10 @@
 			          valign: 'middle',
 			          visible: false,
 			        }, {
+			          title: '仓库名称',
+			          field: 'storeHouseName',
+			          align: 'center'
+			        },{
 			          title: '仓库编号',
 			          field: 'storeHouseCode',
 			          align: 'center'

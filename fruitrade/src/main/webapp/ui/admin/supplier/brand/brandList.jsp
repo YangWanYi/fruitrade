@@ -65,7 +65,7 @@
 		</div>
 		<div class="searchItem">
 			<span>品牌名称</span>
-		    <input type="text" class="form-control" style="width: 160px;margin-top:5px;"  id="companyName" value="" placeholder="请输入品牌名称">
+		    <input type="text" class="form-control" style="width: 160px;margin-top:5px;"  id="brandName" value="" placeholder="请输入品牌名称">
 			<span>负责人</span>
 		    <input type="text" class="form-control" style="width: 160px;margin-top:5px;"  id="principal" value="" placeholder="请输入负责人">
 			<div id="searchBrand" class="btn btn-info">立即搜索</div>
@@ -133,12 +133,12 @@
 		});
 		
 		$('#searchBrand').click(function(){ // 立即搜索
-			var companyName = $("#companyName").val();
+			var brandName = $("#brandName").val();
 			var principal = $("#principal").val(); 
-			initTable('/listBrand.action?companyName='+companyName+'&principal='+principal);
+			initTable('/listBrand.action?brandName='+brandName+'&principal='+principal);
 		});
 		$('#clearSearch').click(function(){
-			$("#companyName").val('');
+			$("#brandName").val('');
 			$("#principal").val('');
 			initTable('/listBrand.action');
 		});

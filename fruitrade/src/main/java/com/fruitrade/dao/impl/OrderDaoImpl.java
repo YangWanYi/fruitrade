@@ -47,18 +47,12 @@ public class OrderDaoImpl extends HibernateDaoSupport  implements OrderDao {
 	public List<OrderDo> listOrder(OrderDo order) {
 		StringBuffer hql=new StringBuffer();
 		hql.append(" from OrderDo where 1=1");
-//		if(StringUtils.isNoneEmpty(Order.getOrderName())) {
-//			hql.append(" and OrderNAME like '%"+Order.getOrderName()+"%'  ");
-//		}
-//		if(Order.getRoleId() != null) {
-//			hql.append(" and ROLETYPE = '"+Order.getRoleId()+"'  ");
-//		}
-//		if(StringUtils.isNoneEmpty(Order.getGender())) {
-//			hql.append(" and GENDER = '"+Order.getGender()+"'  ");
-//		}
-//		if(StringUtils.isNoneEmpty(Order.getPhoneNum())) {
-//			hql.append(" and PHONENUM like '%"+Order.getPhoneNum()+"%'  ");
-//		}
+		if(order.getUserId()!=null) {
+			hql.append(" and USERID ="+order.getUserId());
+		}
+		if(order.getId()!=null) {
+			hql.append(" and id ="+order.getId());
+		}
 
 		@SuppressWarnings("unchecked")
 		List<OrderDo> list= (List<OrderDo>) super.getHibernateTemplate().find(hql.toString());

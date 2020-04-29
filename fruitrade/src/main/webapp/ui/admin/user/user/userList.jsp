@@ -63,12 +63,6 @@
 		<div class="searchItem">
 			<span>姓名</span>
 		    <input type="text" class="form-control" style="width: 160px;margin-top:5px;"  id="userName" value="" placeholder="请输入姓名">
-			<span>角色</span>
-		    <input type="text" class="form-control" style="width: 160px;margin-top:5px;"  id="roleType" value="" placeholder="请输入角色">
-			<span>性别</span>
-		    <input type="text" class="form-control" style="width: 160px;margin-top:5px;"  id="gender" value="" placeholder="请输入性别">
-			<span>联系方式</span>
-		    <input type="text" class="form-control" style="width: 160px;margin-top:5px;"  id="phoneNum" value="" placeholder="请输入联系方式">
 			<div id="searchUser" class="btn btn-info">立即搜索</div>
 			<div id="clearSearch" class="btn btn-secondary">清空</div>
 		</div>
@@ -116,28 +110,10 @@
 		
 		$('#searchUser').click(function(){ // 立即搜索
 			var userName = $("#userName").val();
-			var roleType = $("#roleType").val(); // 用户角色ID 1：客户 2：管理员
-			var gender = $("#gender").val(); // 用户性别 0：男  1：女
-			var phoneNum = $("#phoneNum").val();
-			var genderV = '';
-			var roleTypeV = '';
-			if(gender&&gender.indexOf('男')!=-1){
-				genderV = '0';
-			} else if(gender&&gender.indexOf('女')!=-1){
-				genderV = '1';
-			}
-			if(roleType&&roleType.indexOf('客户')!=-1){
-				roleTypeV = '1';
-			} else if(roleType&&roleType.indexOf('管理员')!=-1){
-				roleTypeV = '2';
-			}
-			initTable('/listUser.action?userName='+userName+'&roleType='+roleTypeV+'&gender='+genderV+'&phoneNum='+phoneNum);
+			initTable('/listUser.action?userName='+userName);
 		});
 		$('#clearSearch').click(function(){
 			$("#userName").val('');
-			$("#roleType").val('');
-			$("#gender").val('');
-			$("#phoneNum").val('');
 			initTable('/listUser.action');
 		});
 		$('#addUser').click(function(){

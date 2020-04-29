@@ -32,6 +32,12 @@
 			    </div>
 			</div>
 			<div class="form-group row">
+			    <label for="colFormLabelSm" class="col-sm-2 col-form-label">仓库名称</label>
+			    <div class="col-sm-6">
+			      <input type="text" class="form-control" id="colFormLabelSm" name="storeHouseName" value="" placeholder="请输入仓库名称">
+			    </div>
+			</div>
+			<div class="form-group row">
 			    <label for="colFormLabelSm" class="col-sm-2 col-form-label">负责人 </label>
 			    <div class="col-sm-6">
 			      <input type="text" class="form-control" id="colFormLabelSm" name="principal" value="" placeholder="请输入负责人 ">

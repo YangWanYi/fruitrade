@@ -10,7 +10,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-		<title>编辑新闻</title>
+		<title>编辑商品促销</title>
 		<style type="text/css">
 			*{
 				padding: 0 0;

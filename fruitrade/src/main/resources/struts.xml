@@ -436,12 +436,54 @@
 		</action>
 	</package>
 	
+	<!-- 出库相关 -->
+	<package name="outputStore" extends="struts-default,json-default" namespace="/">
+		<!-- 加载每日水果折损总量 -->
+		<action name="listWreckSumByDay" class="com.fruitrade.action.OutputStoreAction" method="listWreckSumByDay">
+			<result name="none" type="json">
+				<param name="root">action</param>
+			</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 加载出库列表 -->
+		<action name="listOutputStore" class="com.fruitrade.action.OutputStoreAction">
+			<result name="none" type="json">
+				<param name="root">action</param>
+			</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 去出库编辑页面 -->
+		<action name="toUpdateOutputStorePage"
+			class="com.fruitrade.action.OutputStoreAction" method="toUpdateOutputStorePage">
+			<result name="success">ui/admin/outputStore/editOutputStore.jsp</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 新增或编辑出库信息 -->
+		<action name="saveOrUpdateOutputStore"
+			class="com.fruitrade.action.OutputStoreAction" method="saveOrUpdateOutputStore">
+			<result name="none" type="json"></result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 删除出库信息 -->
+		<action name="deleteOutputStore"
+			class="com.fruitrade.action.OutputStoreAction" method="deleteOutputStore">
+			<result name="none" type="json"></result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+	</package>
+	
 	<!-- 订单相关 -->
 	<package name="theOrder" extends="struts-default,json-default" namespace="/">
-		<!-- 去订单列表页面 -->
-		<action name="toOrderListPage"
-			class="com.fruitrade.action.OrderAction" method="toOrderListPage">
+		<!-- 去订单编辑表页面 -->
+		<action name="toUpdateOrderPage"
+			class="com.fruitrade.action.OrderAction" method="toUpdateOrderPage">
 			<result name="success">ui/admin/order/editOrder.jsp</result>
+			<result name="error" type="redirect">error.jsp</result>
+		</action>
+		<!-- 去订单相关水果列表页面 -->
+		<action name="toorderFruitListPage"
+			class="com.fruitrade.action.OrderAction" method="toorderFruitListPage">
+			<result name="success">ui/customer/order/orderFruitList.jsp</result>
 			<result name="error" type="redirect">error.jsp</result>
 		</action>
 		<!-- 加载订单列表 -->

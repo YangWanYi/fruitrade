@@ -67,9 +67,32 @@
 				margin-left: 5px;
 				cursor: pointer;
 			}
+			.searchItem{
+				float: right;
+				padding-right: 20px;
+				height: 35px;
+   				line-height: 35px;
+			    margin-top: 5px;
+			}
+			.searchItem span,input{
+				display: inline-block;
+				padding: 5px 10px;
+			}
+			#searchNow{
+			    margin-top: 4px;
+   	 			margin-left: 10px;
+			}
 		</style>
 	</head>
 	<body>
+		<div class="searchItem">
+			<div style="float: left;">
+				<span style="float: left;">水果名称</span>
+			    <input type="text" class="form-control" style="width: 160px;margin-top:5px;"  id="fruitName" value="" placeholder="请输入水果名称">
+			</div>
+			<div id="searchNow" class="btn btn-info">立即搜索</div>
+			<div id="clearSearch" class="btn btn-secondary">清空</div>
+		</div>
 		<div class="content">
 			<ol id="productList">
 			</ol>
@@ -82,20 +105,26 @@
 	<script src="https://cdn.bootcss.com/bootstrap-table/1.16.0/locale/bootstrap-table-zh-CN.js"></script>
 	<script type="text/javascript">
 		$(function() {
-			initList(); // 初始化商品信息
+			initList('/listPurchase.action'); // 初始化商品信息
 		});
-		
-		function initList(){
+		$('#searchNow').click(function(){ // 立即搜索
+			var fruitName = $("#fruitName").val(); 
+			initList('/listPurchase.action?fruitName='+fruitName);
+		});
+		$('#clearSearch').click(function(){
+			$("#fruitName").val('');
+			initList('/listPurchase.action');
+		});
+		function initList(url){
 			$.ajax({
 				type: 'post',
 				dataType: 'json',
-// 				url: '/listFruit.action',
-				url: '/listPurchase.action',
+				url: url,
 				acyns: false,
 				success: function(s){
 					var str = '<span class="noData">暂无数据！</span>';
+					str = '';
 					if(s.total>0){
-						str = '';
 						$(s.rows).each(function(m,n){
 							str += '<li>'+
 										'<div class="fruitImg"><img class="mainPic" src="${requestScope.path}'+n.pic+'" /><div>'+
@@ -107,8 +136,8 @@
 										'</div>'+
 									'</li>';
 						});
-						$("#productList").html(str);
 					}
+					$("#productList").html(str);
 				},
 				error: function(e){
 					alert("数据查询失败！");
@@ -136,11 +165,11 @@
 							'userId': userId, 
 							'purchaseId': fruitId,// 水果进货ID
 							'purchaseNum': buyNum, // 购买数量
-							'unitPrice': salePrice, // 单价
+							'salePrice': salePrice, // 单价
 						},
 					async: false,
 					success: function(s){
-						alert("成功加入购物车！请前往订单中心支付！");
+						alert("成功加入购物车！");
 					},
 					error: function(e){
 						alert("加入购物车失败！");

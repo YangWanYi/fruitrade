@@ -120,7 +120,7 @@
 		    			<span class="active">首页</span>
 		    		</li>
 		    		<li id="newsCenter">
-		    			<span>新闻中心</span>
+		    			<span>商品促销</span>
 		    		</li>
 		    		<li id="productCenter">
 		    			<span>产品中心</span>
@@ -189,7 +189,7 @@
 			$("#mainIframe").attr('src', 'ui/common/home/home.jsp');
 		});
 		
-		$("#newsCenter").click(function(){ // 新闻中心
+		$("#newsCenter").click(function(){ // 商品促销中心
 			$("#mainIframe").attr('src', 'ui/customer/news/news.jsp');
 		});
 		
@@ -229,23 +229,21 @@
 		
 		$(".recharge").click(function(){ // 我要充值
 			var money = prompt("请输入充值金额");
-			if(money == null || money == ''){
-				alert('请输入充值金额！');
-				return false;
+			if(money){
+				$.ajax({
+					type: 'post',
+					dataType: 'json',
+					url: '/recharge.action',
+					data: {'id': userId, 'balance': money},
+					async: false,
+					success: function(s){
+						alert("充值成功！");
+					},
+					error: function(e){
+						alert("充值失败！");
+					}
+				});
 			}
-			$.ajax({
-				type: 'post',
-				dataType: 'json',
-				url: '/recharge.action',
-				data: {'id': userId, 'balance': money},
-				async: false,
-				success: function(s){
-					alert("充值成功！");
-				},
-				error: function(e){
-					alert("充值失败！");
-				}
-			});
 		});
 		
 		$(".logout").click(function(){ // 退出

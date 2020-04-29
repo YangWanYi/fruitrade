@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>个人中心</title>
+		<title>购物车</title>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 		<link href="https://cdn.bootcss.com/bootstrap-table/1.16.0/bootstrap-table.css" rel="stylesheet">
 		<style type="text/css">
@@ -51,7 +51,7 @@
 	
 		<div id="toolbar">
 			<div id="deleteCart" class="btn btn-danger">删除</div>
-			<div id="pay" class="btn btn-primary">支付</div>
+			<div id="submitOrder" class="btn btn-primary">提交订单</div>
 			
 		</div>
 		<div class="searchItem">
@@ -118,10 +118,15 @@
 				return false;
 			}
 			var ids = "";
-			$(row).each(function(m,n){
-				ids += n.id+',';
-			});
-			if(confirm('确定删除吗？')){
+			for(var i=0;i<row.length;i++){
+				if(row[i].state==1){
+					alert('已提交订单不可删除！');
+					ids = '';
+					break;
+				}
+				ids += row[i].id+',';
+			}
+			if(ids!=''&&confirm('确定删除吗？')){
 				$.ajax({
 					type: 'post',
 					dataType: 'json',
@@ -137,28 +142,34 @@
 				});
 		    }
 		});
-		$('#pay').click(function(){
+		$('#submitOrder').click(function(){
 			var row = $table.bootstrapTable('getSelections');
 			if(row.length == 0){
 				alert("请选择数据！");
 				return false;
 			}
 			var ids = "";
-			$(row).each(function(m,n){
-				ids += n.id+',';
-			});
-			if(confirm('确定支付吗？')){
+			for(var i=0;i<row.length;i++){
+				if(row[i].state==1){
+					alert('不可重复提交订单！');
+					ids = '';
+					break;
+				}
+				ids += row[i].id+',';
+			}
+			if(ids!=''&&confirm('确定提交订单吗？')){
 				$.ajax({
 					type: 'post',
 					dataType: 'json',
-					url: '/payOrder.action',
+					url: '/saveOrUpdateOrder.action',
 					data: {'ids': ids},
 					async: false,
 					success: function(s){
+						alert("订单提交成功，请前往订单中心支付！");
 						initTable('/listCart.action?userId='+userId); // 重新加载数据
 					},
 					error: function(e){
-						alert("支付失败！");
+						alert("订单提交失败！");
 					}
 				});
 		    }
@@ -192,6 +203,18 @@
 			          field: 'purchaseNum',
 			          halign: 'center',
 			          width: 300,
+			        },{
+			          title: '是否提交订单',
+			          field: 'state',
+			          halign: 'center',
+			          width: 300,
+			          formatter: function (value, row, index) {
+		                if (0==value) {
+		                    return '否'; 
+		                }else if (1==value) {
+		                    return '是';
+		                }
+		              }
 			        }
 		        ]]
 		    });

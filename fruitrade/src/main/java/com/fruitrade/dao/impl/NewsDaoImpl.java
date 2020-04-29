@@ -2,6 +2,7 @@ package com.fruitrade.dao.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
@@ -47,9 +48,9 @@ public class NewsDaoImpl extends HibernateDaoSupport  implements NewsDao {
 	public List<NewsDo> listNews(NewsDo news) {
 		StringBuffer hql=new StringBuffer();
 		hql.append(" from NewsDo where 1=1");
-//		if(StringUtils.isNoneEmpty(News.getNewsName())) {
-//			hql.append(" and NewsNAME like '%"+News.getNewsName()+"%'  ");
-//		}
+		if(StringUtils.isNoneEmpty(news.getTitle())) {
+			hql.append(" and title like '%"+news.getTitle()+"%'  ");
+		}
 //		if(News.getRoleId() != null) {
 //			hql.append(" and ROLETYPE = '"+News.getRoleId()+"'  ");
 //		}

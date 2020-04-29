@@ -123,11 +123,12 @@
 							<span class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 								<span class="dropdown-item roleMenu">角色维护</span>
 								<span class="dropdown-item userMenu">用户维护</span>
+								<span class="dropdown-item orderMng">订单维护</span>
 							</span>
 	    				</span>
 		    		</li>
 		    		<li id="news">
-		    			<span class="menuOne">新闻管理</span>
+		    			<span class="menuOne">商品促销</span>
 		    		</li>
 		    		<li id="storehouse">
 		    			<span class="dropdown">
@@ -136,6 +137,7 @@
 								<span class="dropdown-item storeMenu">仓库维护</span>
 								<span class="dropdown-item storageMenu">货架维护</span>
 								<span class="dropdown-item purchaseMenu">进货维护</span>
+								<span class="dropdown-item outputStore">出库维护</span>
 							</span>
 	    				</span>
 		    		</li>
@@ -228,8 +230,16 @@
 			$("#mainIframe").attr('src', '/toFruitListPage.action');
 		});
 		
-		$("#news").click(function(){ // 新闻管理
+		$("#news").click(function(){ // 商品促销管理
 			$("#mainIframe").attr('src', 'news/newsList.jsp');
+		});
+		
+		$(".outputStore").click(function(){ // 出库维护
+			$("#mainIframe").attr('src', 'outputStore/outputStoreList.jsp');
+		});
+		
+		$(".orderMng").click(function(){ // 订单维护
+			$("#mainIframe").attr('src', 'order/orderList.jsp');
 		});
 		
 		$(".logout").click(function(){ // 退出

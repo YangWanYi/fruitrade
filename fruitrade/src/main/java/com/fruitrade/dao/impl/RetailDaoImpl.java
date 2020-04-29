@@ -2,6 +2,7 @@ package com.fruitrade.dao.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
@@ -46,19 +47,13 @@ public class RetailDaoImpl extends HibernateDaoSupport  implements RetailDao {
 	@Override
 	public List<Object> listRetail(RetailDo retail) {
 		StringBuffer hql=new StringBuffer();
-		hql.append(" from RetailDo b left join SupplyVsFruitDo v on b.id = v.supplyId");
-//		if(StringUtils.isNoneEmpty(Retail.getRetailName())) {
-//			hql.append(" and RetailNAME like '%"+Retail.getRetailName()+"%'  ");
-//		}
-//		if(Retail.getRoleId() != null) {
-//			hql.append(" and ROLETYPE = '"+Retail.getRoleId()+"'  ");
-//		}
-//		if(StringUtils.isNoneEmpty(Retail.getGender())) {
-//			hql.append(" and GENDER = '"+Retail.getGender()+"'  ");
-//		}
-//		if(StringUtils.isNoneEmpty(Retail.getPhoneNum())) {
-//			hql.append(" and PHONENUM like '%"+Retail.getPhoneNum()+"%'  ");
-//		}
+		hql.append(" from RetailDo b left join SupplyVsFruitDo v on b.id = v.supplyId where 1=1 ");
+		if(StringUtils.isNoneEmpty(retail.getRetailName())) {
+			hql.append(" and b.retailName like '%"+retail.getRetailName()+"%'  ");
+		}
+		if(StringUtils.isNoneEmpty(retail.getRetailCode())) {
+			hql.append(" and b.retailCode like '%"+retail.getRetailCode()+"%'  ");
+		}
 
 		@SuppressWarnings("unchecked")
 		List<Object> list= (List<Object>) super.getHibernateTemplate().find(hql.toString());

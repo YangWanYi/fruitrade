@@ -2,6 +2,7 @@ package com.fruitrade.dao.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
@@ -47,19 +48,9 @@ public class RoleDaoImpl extends HibernateDaoSupport  implements RoleDao {
 	public List<RoleDo> listRole(RoleDo role) {
 		StringBuffer hql=new StringBuffer();
 		hql.append(" from RoleDo where 1=1");
-//		if(StringUtils.isNoneEmpty(Role.getRoleName())) {
-//			hql.append(" and RoleNAME like '%"+Role.getRoleName()+"%'  ");
-//		}
-//		if(Role.getRoleId() != null) {
-//			hql.append(" and ROLETYPE = '"+Role.getRoleId()+"'  ");
-//		}
-//		if(StringUtils.isNoneEmpty(Role.getGender())) {
-//			hql.append(" and GENDER = '"+Role.getGender()+"'  ");
-//		}
-//		if(StringUtils.isNoneEmpty(Role.getPhoneNum())) {
-//			hql.append(" and PHONENUM like '%"+Role.getPhoneNum()+"%'  ");
-//		}
-
+		if(StringUtils.isNoneEmpty(role.getRoleName())) {
+			hql.append(" and roleName like '%"+role.getRoleName()+"%'  ");
+		}
 		@SuppressWarnings("unchecked")
 		List<RoleDo> list= (List<RoleDo>) super.getHibernateTemplate().find(hql.toString());
 		return list;

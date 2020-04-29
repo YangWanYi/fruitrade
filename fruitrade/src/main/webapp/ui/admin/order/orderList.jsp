@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page import="com.fruitrade.domain.StorageDo;"%>
+<%@page import="com.fruitrade.domain.OrderDo;"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -11,7 +11,7 @@
 		<meta charset="UTF-8">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 		<link href="https://cdn.bootcss.com/bootstrap-table/1.16.0/bootstrap-table.css" rel="stylesheet">
-		<title>货架管理</title>
+		<title>订单管理</title>
 		<style type="text/css">
 			*{
 				padding: 0 0;
@@ -23,7 +23,7 @@
 				overflow-x: hidden; 
 				padding: 0px 10px;
 			}
-			#winIframe{
+			#winIframe,#fruitIframe{
 				height: 100%;
 				width: 100%;
 				border: none;
@@ -46,7 +46,7 @@
 				float: left;
 				padding: 5px 10px;
 			}
-			#searchStorage{
+			#searchOrder{
 			    margin-top: 4px;
    	 			margin-left: 10px;
 			}
@@ -55,15 +55,12 @@
 	<body>
 	
 		<div id="toolbar">
-			<div id="addStorage" class="btn btn-primary" data-toggle="modal" data-target="#myModal">新增货架</div>
-			<div id="editStorage" class="btn btn-success" data-toggle="modal" data-target="#myModal">编辑货架</div>
-			<div id="deleteStorage" class="btn btn-danger">删除货架</div>
-			
+			<div id="editOrder" class="btn btn-success" data-toggle="modal" data-target="#myModal">编辑订单</div>
 		</div>
 		<div class="searchItem">
-			<span>货架编号</span>
-		    <input type="text" class="form-control" style="width: 160px;margin-top:5px;"  id="storageCode" value="" placeholder="请输入货架编号">
-			<div id="searchStorage" class="btn btn-info">立即搜索</div>
+			<span>订单号</span>
+		    <input type="text" class="form-control" style="width: 160px;margin-top:5px;"  id="id" value="" placeholder="请输入订单号">
+			<div id="searchOrder" class="btn btn-info">立即搜索</div>
 			<div id="clearSearch" class="btn btn-secondary">清空</div>
 		</div>
 		
@@ -85,7 +82,6 @@
 		        </div>
 		    </div>
 		</div>
-        
 		<table
 		  id="table"
 		  data-toolbar="#toolbar"
@@ -105,52 +101,18 @@
 	<script type="text/javascript">
 		var $table = $('#table');
 		$(function() {
-			initTable('/listStorage.action');
+			initTable('/listOrder.action');
 		});
 		
-		$('#searchStorage').click(function(){ // 立即搜索
-			var storageCode = $("#storageCode").val();
-			initTable('/listStorage.action?storageCode='+storageCode);
+		$('#searchOrder').click(function(){ // 立即搜索
+			var id = $("#id").val();
+			initTable('/listOrder.action?id='+id);
 		});
 		$('#clearSearch').click(function(){
-			$("#storageCode").val('');
-			initTable('/listStorage.action');
+			$("#id").val('');
+			initTable('/listOrder.action');
 		});
-		$('#addStorage').click(function(){
-			$("#winIframe").attr("src","addStorage.jsp");
-			$('#myModal').on('shown.bs.modal', function () {
-				$(this).find('.modal-content').css('height','600px');// 修改modal的高度
-				$(this).find('.modal-content').css('width','500px');// 修改modal的标题
-				$(this).find('.modal-title').text('新增货架');// 修改modal的标题
-			});
-		});
-		$('#deleteStorage').click(function(){
-			var row = $table.bootstrapTable('getSelections');
-			if(row.length == 0){
-				alert("请选择数据！");
-				return false;
-			}
-			var ids = "";
-			$(row).each(function(m,n){
-				ids += n.id+',';
-			});
-			if(confirm('确定删除吗？')){
-				$.ajax({
-					type: 'post',
-					dataType: 'json',
-					url: '/deleteStorage.action',
-					data: {'ids': ids},
-					async: false,
-					success: function(s){
-						initTable('/listStorage.action'); // 重新加载数据
-					},
-					error: function(e){
-						alert("删除失败！");
-					}
-				});
-		    }
-		});
-		$('#editStorage').click(function(){
+		$('#editOrder').click(function(){
 			var row = $table.bootstrapTable('getSelections');
 			if(row.length == 0){
 				alert("请选择数据！");
@@ -160,11 +122,15 @@
 				alert("只能选择一条数据！");
 				return false;
 			}
-			$("#winIframe").attr("src","/toUpdateStoragePage.action?id="+row[0].id);
+			if(row[0].orderState=='1'){
+				alert('已支付订单不可编辑!');
+				return false;
+			}
+			$("#winIframe").attr("src","/toUpdateOrderPage.action?id="+row[0].id);
 			$('#myModal').on('shown.bs.modal', function () {
 				$(this).find('.modal-content').css('height','600px');// 修改modal的高度
 				$(this).find('.modal-content').css('width','500px');// 修改modal的标题
-				$(this).find('.modal-title').text('编辑货架');// 修改modal的标题
+				$(this).find('.modal-title').text('编辑订单');// 修改modal的标题
 			});
 		});
 		
@@ -172,7 +138,7 @@
 			$.ajax({
 				type: 'post',
 				dataType: 'json',
-				url: '/saveOrUpdateStorage.action',
+				url: '/saveOrUpdateOrder.action',
 				data: $("#winIframe").contents().find("#myForm").serialize(),
 				async: false,
 				success: function(s){
@@ -186,7 +152,7 @@
 		
 		$("#myModal").on("hidden.bs.modal", function() {
 		    $(this).removeData("bs.modal");
-		    initTable('/listStorage.action'); // 重新加载数据
+		    initTable('/listOrder.action'); // 重新加载数据
 		});
 
 		function initTable(url) {
@@ -197,21 +163,70 @@
 					{
 			          checkbox: true,
 			          align: 'center',
-					}, {
-			          field: 'id',
-			          align: 'center',
-			          valign: 'middle',
-			          visible: false,
-			        }, {
-			          title: '仓库编号',
-			          field: 'storeHouse',
+					},{
+			          title: '客户姓名',
+			          field: 'userName',
 			          align: 'center'
 			        },{
-			          title: '货架编号',
-			          field: 'storageCode',
+			          title: '订单号',
+			          field: 'id',
 			          align: 'center',
+			        },{
+			          title: '订单状态',
+			          field: 'orderState',
+			          align: 'center',
+			          formatter: function (value, row, index) {
+			        	  if("1"==value){
+			        		  value = "已支付";
+			        	  }else if("0"==value){
+			        		  value = "未支付"
+			        	  }
+	                    return value;
+		              }
+			        },{
+			          title: '总额（元）',
+			          field: 'totalPrice',
+			          align: 'center',
+			        },{
+			          title: '邮费（元）',
+			          field: 'postage',
+			          align: 'center'
+			        },{
+			          title: '下单时间',
+			          field: 'createTime',
+			          align: 'center',
+			          formatter: function (value, row, index) {
+			        	  if(value){
+			        		  return value.replace('T', ' ');
+			        	  }
+		              }
+			        },{
+			          title: '预计送达时间',
+			          field: 'planDeliveryTime',
+			          align: 'center',
+			          valign: 'middle',
+			          width: 300,
+			          formatter: function (value, row, index) {
+			        	  if(value){
+			        		  return value.replace('T', ' ');
+			        	  }
+		              }
+			        },{
+			          title: '付款时间',
+			          field: 'payTime',
+			          align: 'center',
+			          valign: 'middle',
+			          width: 300,
+			          formatter: function (value, row, index) {
+			        	  if(value){
+			        		  return value.replace('T', ' ');
+			        	  }
+		              }
 			        }
-		        ]]
+		        ]],
+		        onLoadSuccess: function(data){
+		        	return data.list;
+		        }
 		    });
 		  }
 	</script>

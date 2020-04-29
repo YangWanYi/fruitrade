@@ -85,10 +85,10 @@ public class UserAction implements Action, ModelDriven<UserDo> {
 	public String recharge() {
 		try {
 			if (this.userData.getId() != null) { // 存在主键 走编辑 
-				int num = this.userData.getBalance();
+				Double num = this.userData.getBalance();
 				this.userData = this.userService.selectUserById(this.userData.getId());
 				if(this.userData != null) {
-					this.userData.setBalance(this.userData.getBalance()==null?0:this.userData.getBalance()+num);
+					this.userData.setBalance(this.userData.getBalance()==null?num:this.userData.getBalance()+num);
 					this.userData.setUpdateTime(new Date());
 					this.userService.updateUser(this.userData);
 					ActionContext.getContext().getSession().put("user", this.userData);// 更新session

@@ -2,6 +2,7 @@ package com.fruitrade.dao.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
@@ -50,15 +51,9 @@ public class FruitDaoImpl extends HibernateDaoSupport  implements FruitDao {
 		if(fruit.getFruitClassifyID() !=null) {
 			hql.append(" and FRUITCLASSIFYID ="+fruit.getFruitClassifyID()+"  ");
 		}
-//		if(Fruit.getRoleId() != null) {
-//			hql.append(" and ROLETYPE = '"+Fruit.getRoleId()+"'  ");
-//		}
-//		if(StringUtils.isNoneEmpty(Fruit.getGender())) {
-//			hql.append(" and GENDER = '"+Fruit.getGender()+"'  ");
-//		}
-//		if(StringUtils.isNoneEmpty(Fruit.getPhoneNum())) {
-//			hql.append(" and PHONENUM like '%"+Fruit.getPhoneNum()+"%'  ");
-//		}
+		if(StringUtils.isNoneEmpty(fruit.getFruitName())) {
+			hql.append(" and fruitName like '%"+fruit.getFruitName()+"%'  ");
+		}
 
 		@SuppressWarnings("unchecked")
 		List<FruitDo> list= (List<FruitDo>) super.getHibernateTemplate().find(hql.toString());

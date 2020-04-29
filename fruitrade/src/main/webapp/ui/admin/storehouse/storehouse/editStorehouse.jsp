@@ -28,10 +28,16 @@
 			<input type="hidden" name="id" value="${requestScope.storehouseData.id}">
 			<input type="hidden" name="createId" value="${requestScope.storehouseData.createId}">
 			<input type="hidden" name="createTime" value="${requestScope.storehouseData.createTime}">
-				<div class="form-group row">
+			<div class="form-group row">
 			    <label for="colFormLabelSm" class="col-sm-2 col-form-label">仓库编号</label>
 			    <div class="col-sm-6">
 			      <input type="text" class="form-control" id="colFormLabelSm" name="storeHouseCode" value="${requestScope.storehouseData.storeHouseCode}" placeholder="请输入仓库编号">
+			    </div>
+			</div>
+			<div class="form-group row">
+			    <label for="colFormLabelSm" class="col-sm-2 col-form-label">仓库名称</label>
+			    <div class="col-sm-6">
+			      <input type="text" class="form-control" id="colFormLabelSm" name="storeHouseName" value="${requestScope.storehouseData.storeHouseName}" placeholder="请输入仓库名称">
 			    </div>
 			</div>
 			<div class="form-group row">

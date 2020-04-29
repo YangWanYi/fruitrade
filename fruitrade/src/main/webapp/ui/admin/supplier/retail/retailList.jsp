@@ -64,10 +64,10 @@
 			
 		</div>
 		<div class="searchItem">
-			<span>散户名称</span>
-		    <input type="text" class="form-control" style="width: 160px;margin-top:5px;"  id="companyName" value="" placeholder="请输入散户名称">
-			<span>负责人</span>
-		    <input type="text" class="form-control" style="width: 160px;margin-top:5px;"  id="principal" value="" placeholder="请输入负责人">
+			<span>姓名</span>
+		    <input type="text" class="form-control" style="width: 160px;margin-top:5px;"  id="retailName" value="" placeholder="请输入姓名">
+			<span>散户编号</span>
+		    <input type="text" class="form-control" style="width: 160px;margin-top:5px;"  id="retailCode" value="" placeholder="请输入散户编号">
 			<div id="searchRetail" class="btn btn-info">立即搜索</div>
 			<div id="clearSearch" class="btn btn-secondary">清空</div>
 		</div>
@@ -134,13 +134,13 @@
 		});
 		
 		$('#searchRetail').click(function(){ // 立即搜索
-			var companyName = $("#companyName").val();
-			var principal = $("#principal").val(); 
-			initTable('/listRetail.action?companyName='+companyName+'&principal='+principal);
+			var retailName = $("#retailName").val();
+			var retailCode = $("#retailCode").val(); 
+			initTable('/listRetail.action?retailName='+retailName+'&retailCode='+retailCode);
 		});
 		$('#clearSearch').click(function(){
-			$("#companyName").val('');
-			$("#principal").val('');
+			$("#retailName").val('');
+			$("#retailCode").val('');
 			initTable('/listRetail.action');
 		});
 		$('#addRetail').click(function(){

@@ -61,8 +61,10 @@
 			
 		</div>
 		<div class="searchItem">
-			<span>水果名称</span>
-		    <input type="text" class="form-control" style="width: 160px;margin-top:5px;"  id="FruitClassifyName" value="" placeholder="请输入水果名称">
+			<span>种类编号</span>
+		    <input type="text" class="form-control" style="width: 160px;margin-top:5px;"  id="classifyCode" value="" placeholder="请输入种类编号">
+			<span>种类名称</span>
+		    <input type="text" class="form-control" style="width: 160px;margin-top:5px;"  id="classifyName" value="" placeholder="请输入种类名称">
 			<div id="searchFruitClassify" class="btn btn-info">立即搜索</div>
 			<div id="clearSearch" class="btn btn-secondary">清空</div>
 		</div>
@@ -129,11 +131,13 @@
 		});
 		
 		$('#searchFruitClassify').click(function(){ // 立即搜索
-			var FruitClassifyName = $("#FruitClassifyName").val(); 
-			initTable('/listFruitClassify.action?FruitClassifyName='+FruitClassifyName);
+			var classifyCode = $("#classifyCode").val(); 
+			var classifyName = $("#classifyName").val(); 
+			initTable('/listFruitClassify.action?classifyCode='+classifyCode+'&classifyName='+classifyName);
 		});
 		$('#clearSearch').click(function(){
-			$("#FruitClassifyName").val('');
+			$("#classifyCode").val('');
+			$("#classifyName").val('');
 			initTable('/listFruitClassify.action');
 		});
 		$('#addFruitClassify').click(function(){

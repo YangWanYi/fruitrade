@@ -27,20 +27,20 @@
 			<input type="hidden" name="id" value="${sessionScope.user.id}">
 			<input type="hidden" name="password" value="${sessionScope.user.password}">
 			<div class="form-group row">
-			    <label for="colFormLabelSm" class="col-sm-2 col-form-label">用户名</label>
-			    <div class="col-sm-10">
+			    <label for="colFormLabelSm" class="col-sm-3 col-form-label">用户名</label>
+			    <div class="col-sm-9">
 			      <input type="email" class="form-control" id="colFormLabelSm" name="account" value="${sessionScope.user.account}" placeholder="请输入登录账号">
 			    </div>
 			</div>
 			<div class="form-group row">
-			    <label for="colFormLabelSm" class="col-sm-2 col-form-label">姓名</label>
-			    <div class="col-sm-10">
+			    <label for="colFormLabelSm" class="col-sm-3 col-form-label">姓名</label>
+			    <div class="col-sm-9">
 			      <input type="email" class="form-control" id="colFormLabelSm" name="userName" value="${sessionScope.user.userName}" placeholder="请输入您的姓名">
 			    </div>
 			</div>
 			<div class="form-group row">
-			    <label for="colFormLabelSm" class="col-sm-2 col-form-label">性别</label>
-			    <div class="col-sm-10">
+			    <label for="colFormLabelSm" class="col-sm-3 col-form-label">性别</label>
+			    <div class="col-sm-9">
 					<select class="form-control" name="gender" id="gender">
 						<option value="0">男</option>
 						<option value="1">女</option>
@@ -48,26 +48,26 @@
 			    </div>
 			</div>
 			<div class="form-group row">
-			    <label for="colFormLabelSm" class="col-sm-2 col-form-label">联系方式</label>
-			    <div class="col-sm-10">
+			    <label for="colFormLabelSm" class="col-sm-3 col-form-label">联系方式</label>
+			    <div class="col-sm-9">
 			      <input type="number" class="form-control" id="colFormLabelSm" name="phoneNum" value="${sessionScope.user.phoneNum}" placeholder="请输入手机号">
 			    </div>
 			</div>
 			<div class="form-group row">
-			    <label for="colFormLabelSm" class="col-sm-2 col-form-label">邮箱地址</label>
-			    <div class="col-sm-10">
+			    <label for="colFormLabelSm" class="col-sm-3 col-form-label">邮箱地址</label>
+			    <div class="col-sm-9">
 			      <input type="email" class="form-control" id="colFormLabelSm" name="email" value="${sessionScope.user.email}" placeholder="请输入邮箱地址">
 			    </div>
 			</div>
 			<div class="form-group row">
-			    <label for="colFormLabelSm" class="col-sm-2 col-form-label">账户余额</label>
-			    <div class="col-sm-10">
-			      <input type="number" class="form-control" id="balance" name="balance" value="${sessionScope.user.balance}">
+			    <label for="colFormLabelSm" class="col-sm-3 col-form-label">账户余额（元）</label>
+			    <div class="col-sm-9">
+			      <input type="number" class="form-control" id="balance" name="balance"  readonly="readonly" value="${sessionScope.user.balance}">
 			    </div>
 			</div>
 			<div class="form-group row">
-			    <label for="colFormLabelSm" class="col-sm-2 col-form-label">收货地址</label>
-			    <div class="col-sm-10">
+			    <label for="colFormLabelSm" class="col-sm-3 col-form-label">收货地址</label>
+			    <div class="col-sm-9">
 			      <input type="email" class="form-control" id="colFormLabelSm" name="address" value="${sessionScope.user.address}" placeholder="请输入收货地址">
 			    </div>
 			</div>

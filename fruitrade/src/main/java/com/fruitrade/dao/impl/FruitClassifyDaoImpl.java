@@ -2,6 +2,7 @@ package com.fruitrade.dao.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
@@ -47,18 +48,12 @@ public class FruitClassifyDaoImpl extends HibernateDaoSupport  implements FruitC
 	public List<FruitClassifyDo> listFruitClassify(FruitClassifyDo fruitClassify) {
 		StringBuffer hql=new StringBuffer();
 		hql.append(" from FruitClassifyDo where 1=1");
-//		if(StringUtils.isNoneEmpty(FruitClassify.getFruitClassifyName())) {
-//			hql.append(" and FruitClassifyNAME like '%"+FruitClassify.getFruitClassifyName()+"%'  ");
-//		}
-//		if(FruitClassify.getRoleId() != null) {
-//			hql.append(" and ROLETYPE = '"+FruitClassify.getRoleId()+"'  ");
-//		}
-//		if(StringUtils.isNoneEmpty(FruitClassify.getGender())) {
-//			hql.append(" and GENDER = '"+FruitClassify.getGender()+"'  ");
-//		}
-//		if(StringUtils.isNoneEmpty(FruitClassify.getPhoneNum())) {
-//			hql.append(" and PHONENUM like '%"+FruitClassify.getPhoneNum()+"%'  ");
-//		}
+		if(StringUtils.isNoneEmpty(fruitClassify.getClassifyName())) {
+			hql.append(" and classifyName like '%"+fruitClassify.getClassifyName()+"%'  ");
+		}
+		if(StringUtils.isNoneEmpty(fruitClassify.getClassifyCode())) {
+			hql.append(" and classifyCode like '%"+fruitClassify.getClassifyCode()+"%'  ");
+		}
 
 		@SuppressWarnings("unchecked")
 		List<FruitClassifyDo> list= (List<FruitClassifyDo>) super.getHibernateTemplate().find(hql.toString());

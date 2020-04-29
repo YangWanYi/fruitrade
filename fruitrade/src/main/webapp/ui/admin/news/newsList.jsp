@@ -11,7 +11,7 @@
 		<meta charset="UTF-8">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 		<link href="https://cdn.bootcss.com/bootstrap-table/1.16.0/bootstrap-table.css" rel="stylesheet">
-		<title>新闻管理</title>
+		<title>商品促销管理</title>
 		<style type="text/css">
 			*{
 				padding: 0 0;
@@ -55,9 +55,9 @@
 	<body>
 	
 		<div id="toolbar">
-			<div id="addNews" class="btn btn-primary" data-toggle="modal" data-target="#myModal">新增新闻</div>
-			<div id="editNews" class="btn btn-success" data-toggle="modal" data-target="#myModal">编辑新闻</div>
-			<div id="deleteNews" class="btn btn-danger">删除新闻</div>
+			<div id="addNews" class="btn btn-primary" data-toggle="modal" data-target="#myModal">新增商品促销</div>
+			<div id="editNews" class="btn btn-success" data-toggle="modal" data-target="#myModal">编辑商品促销</div>
+			<div id="deleteNews" class="btn btn-danger">删除商品促销</div>
 			
 		</div>
 		<div class="searchItem">
@@ -121,7 +121,7 @@
 			$('#myModal').on('shown.bs.modal', function () {
 				$(this).find('.modal-content').css('height','600px');// 修改modal的高度
 				$(this).find('.modal-content').css('width','500px');// 修改modal的标题
-				$(this).find('.modal-title').text('新增新闻');// 修改modal的标题
+				$(this).find('.modal-title').text('新增商品促销');// 修改modal的标题
 			});
 		});
 		$('#deleteNews').click(function(){
@@ -164,7 +164,7 @@
 			$('#myModal').on('shown.bs.modal', function () {
 				$(this).find('.modal-content').css('height','600px');// 修改modal的高度
 				$(this).find('.modal-content').css('width','500px');// 修改modal的标题
-				$(this).find('.modal-title').text('编辑新闻');// 修改modal的标题
+				$(this).find('.modal-title').text('编辑商品促销');// 修改modal的标题
 			});
 		});
 		
@@ -212,13 +212,6 @@
 			          field: 'content',
 			          halign: 'center',
 			          width: 300,
-// 			          formatter: function (value, row, index) {// 新闻角色ID 1：客户 2：管理员
-// 		                if (value == '1') {
-// 		                    return "客户";
-// 		                } else {
-// 		                    return "管理员";
-// 		                }
-// 		              }
 			        }
 		        ]]
 		    });

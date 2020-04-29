@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * 进货实体类
@@ -68,6 +69,9 @@ public class PurchaseDo implements Serializable {
 	 */
 	@Column(name = "CREATETIME")
 	private Date createTime;
+	
+	@Transient
+	private String fruitName;
 
 	public Integer getId() {
 		return id;
@@ -131,6 +135,14 @@ public class PurchaseDo implements Serializable {
 
 	public void setSalePrice(Double salePrice) {
 		this.salePrice = salePrice;
+	}
+
+	public String getFruitName() {
+		return fruitName;
+	}
+
+	public void setFruitName(String fruitName) {
+		this.fruitName = fruitName;
 	}
 	
 }
